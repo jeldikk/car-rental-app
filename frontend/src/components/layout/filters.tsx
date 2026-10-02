@@ -1,4 +1,3 @@
-import React from "react";
 import { Card, CardHeader } from "../ui/card";
 import { Checkbox } from "../ui/checkbox";
 import { Search } from "lucide-react";
