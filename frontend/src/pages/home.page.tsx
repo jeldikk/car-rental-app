@@ -1,26 +1,32 @@
-import { gql } from "@apollo/client";
+import Filters from "../components/layout/filters";
+import ListHomeCars from "../components/car/list-home-cars";
 import { useQuery } from "@apollo/client/react";
+import { GET_ALL_CARS } from "../graphql/queries/car.queries";
+import { LoadingSpinner } from "../components/layout/loading-spinner";
+import type { ICar } from "@/types/car.type";
 
-const GET_CARS = gql`
-  query GetCars {
-    cars {
-      id
-      make
-      model
-      year
-    }
+function HomePage() {
+  const { data, loading, error } = useQuery(GET_ALL_CARS);
+
+  console.dir({ data, loading, error });
+
+  if (loading) {
+    return <LoadingSpinner />;
   }
-`;
-
-export default function HomePage() {
-  const { loading, error, data } = useQuery(GET_CARS);
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
-  if (!data) return <p>No cars found</p>;
   return (
-    <div className="home-page h-screen flex flex-col items-center justify-center">
-      <h1 className="text-3xl font-bold mb-4">Welcome to the Home Page</h1>
-    </div>
+    <main className="my-8 grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 md:grid-cols-6 lg:grid-cols-10 xl:grid-cols-10">
+      <div className="md:col-span-2 lg:col-span-2 flex flex-col">
+        <Filters />
+      </div>
+      <div className="grid auto-rows-max items-start gap-4 md:gap-8 md:col-span-4 lg:col-span-4 flex flex-col">
+        <ListHomeCars cars={(data?.cars as Array<ICar>) || []} />
+      </div>
+      <div className="md:col-span-6 lg:col-span-4 flex flex-col">
+        <div className="flex items-center justify-center h-screen"></div>
+        {/* Google Map Component */}
+      </div>
+    </main>
   );
 }
+
+export default HomePage;

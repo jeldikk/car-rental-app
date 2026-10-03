@@ -52,6 +52,13 @@ services:
     restart: always
     ports:
       - "5173:80"
+    develop:
+      watch:
+        - path: ./package.json
+          action: rebuild
+        - path: ./src
+          action: sync
+          target: /app/src
     depends_on:
       - server
 
