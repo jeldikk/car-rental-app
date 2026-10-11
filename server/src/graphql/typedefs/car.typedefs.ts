@@ -69,10 +69,31 @@ export const carTypeDefs = gql`
     ratings: CarRating!
   }
 
+  input PaginationInputType {
+    currentPage: Int
+    itemsPerPage: Int
+  }
+
+  input CarFilters {
+    searchTerm: String
+    category: String
+    fuelType: String
+    brand: String
+    pagination: PaginationInputType
+  }
+
+  type CarPaginatedResults {
+    results: [Car!]!
+    currentPage: Int!
+    itemsPerPage: Int!
+    totalItems: Int!
+    totalPages: Int!
+  }
+
   # In this we define all type of queries that we can perform on car type
   # for example; getting car list, getting car by ID etc.,
   type Query {
-    cars: [Car!]!
+    cars(filters: CarFilters): CarPaginatedResults!
     car(id: ID!): Car
   }
 

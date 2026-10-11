@@ -6,7 +6,7 @@ import { LoadingSpinner } from "../components/layout/loading-spinner";
 import type { ICar } from "@/types/car.type";
 
 function HomePage() {
-  const { data, loading, error } = useQuery(GET_ALL_CARS);
+  const { data, loading, error } = useQuery<{ cars: ICar[] }>(GET_ALL_CARS, {});
 
   console.dir({ data, loading, error });
 

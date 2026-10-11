@@ -6,10 +6,11 @@ export interface ICar {
   doors: number;
   fuelType: string;
   id: string;
+  address: string;
   images: {
     public_id: string;
     url: string;
-  };
+  }[];
   mileage: number;
   name: string;
   power: number;

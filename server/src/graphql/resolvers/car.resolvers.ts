@@ -5,11 +5,13 @@ import {
   updateCar,
   deleteCar,
 } from "../../services/car.service";
+import { ICarFilters } from "../../types/car.types";
 
 export const carResolvers = {
   Query: {
-    cars: async () => {
-      const cars = await getAllCars();
+    cars: async (_: any, args: { filters: ICarFilters }) => {
+      const { filters } = args;
+      const cars = await getAllCars(filters);
       return cars;
     },
     car: async (_: any, args: { id: string }) => {

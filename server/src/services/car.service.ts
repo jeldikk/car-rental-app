@@ -1,9 +1,22 @@
 import { Car } from "../models/car.model";
 import { Types } from "mongoose";
 import { CarInput } from "../types/car.types";
-export async function getAllCars() {
+import { ICarFilters } from "../types/car.types";
+import { AppFilters } from "../utils/filters";
+
+export async function getAllCars(filters: ICarFilters) {
   try {
-    const cars = await Car.find();
+    const carFilters = new AppFilters(Car)
+      .setSearchTerm(filters.searchTerm || "")
+      .setCategory(filters.category || "")
+      .setFuelType(filters.fuelType || "")
+      .setBrand(filters.brand || "")
+      .setPagination(
+        filters.pagination?.currentPage || 1,
+        filters.pagination?.itemsPerPage || 10,
+        0,
+      );
+    const cars = await carFilters.filter();
     return cars;
   } catch (err) {
     console.error("Error fetching all cars:", err);

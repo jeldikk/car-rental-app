@@ -12,3 +12,14 @@ export type CarInput = {
   category: "Sedan" | "SUV" | "Hatchback";
   reviews?: string[];
 };
+
+export interface ICarFilters {
+  searchTerm?: string;
+  category?: string;
+  fuelType?: string;
+  brand?: string;
+  pagination?: {
+    currentPage?: number;
+    itemsPerPage?: number;
+  };
+}

@@ -1,4 +1,3 @@
-import React from "react";
 import { Card, CardHeader, CardTitle } from "../ui/card";
 import { CarImagesSlider } from "./car-image-slider";
 import { DropdownMenuSeparator } from "../ui/dropdown-menu";
@@ -9,32 +8,14 @@ import { Badge } from "../ui/badge";
 import { BookingForm } from "../booking/booking-form";
 import CarReviews from "../review/car-reviews";
 import CarFeatures from "./car-features";
+import type { ICar } from "@/types/car.type";
 
-const CarDetails = () => {
-  const car = {
-    id: "sampleCarId",
-    address: "123 Main St, Anytown, USA",
-    images: ["image1.jpg", "image2.jpg"],
-    name: "Sample Car",
-    rentPerDay: 50,
-    ratings: {
-      value: 4.5,
-      count: 10,
-    },
-    description: "This is a sample car description.",
-    reviews: [
-      {
-        id: "review1",
-        content: "Great car!",
-        rating: 5,
-      },
-      {
-        id: "review2",
-        content: "Good value for money.",
-        rating: 4,
-      },
-    ],
-  };
+type Props = {
+  car: ICar;
+};
+
+const CarDetails = (props: Props) => {
+  const { car } = props;
 
   return (
     <div className="container">
